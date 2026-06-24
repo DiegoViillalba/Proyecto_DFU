@@ -222,11 +222,10 @@ def main(NUM_EPOCHS=NUM_EPOCHS):
 
 
 # ------------------- Entrenamiento -------------------
-num_ep = input("Enter # of epochs: ")
-# Modl = main(NUM_EPOCHS=int(num_ep))
-try:
-    print("Training for ", num_ep, " epochs.")
-    Modl = main(NUM_EPOCHS=int(num_ep))
-except NameError:
-    print("Número inválido. Se entrenará con 10 épocas por default.")
-    Modl = main()
+if __name__ == "__main__":
+    num_ep = input("Enter # of epochs: ")
+    try:
+        Modl = main(NUM_EPOCHS=int(num_ep))
+    except (NameError, ValueError, EOFError):
+        print("Número inválido o no provisto. Se entrenará con 10 épocas por default.")
+        Modl = main()

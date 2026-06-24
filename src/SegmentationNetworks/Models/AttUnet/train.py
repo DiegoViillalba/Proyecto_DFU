@@ -211,11 +211,10 @@ def main(NUM_EPOCHS=NUM_EPOCHS):
     # return model, L_dice, L_loss, L_accuracy, L_precision, L_recall, L_f1_score
 
 
-# ------------------- Entrenamiento -------------------
-num_ep = input("Enter # of epochs: ")
-# Modl = main(NUM_EPOCHS=int(num_ep))
-try:
-    Modl = main(NUM_EPOCHS=int(num_ep))
-except NameError:
-    print("Número inválido. Se entrenará con 10 épocas por default.")
-    Modl = main()
+if __name__ == "__main__":
+    num_ep = input("Enter # of epochs: ")
+    try:
+        Modl = main(NUM_EPOCHS=int(num_ep))
+    except (NameError, ValueError, EOFError):
+        print("Número inválido o no provisto. Se entrenará con 10 épocas por default.")
+        Modl = main()

@@ -58,6 +58,8 @@ pip-delete-this-directory.txt
 # Nota: DVC maneja el dataset dentro de data/, pero aseguramos su exclusión en git.
 data/dfu_tissue/
 data/miccai/
+.dvc/cache/
+.dvc/tmp/
 
 # --- Checkpoints y Pesos Pesados de Entrenamiento ---
 # Excluye todas las carpetas output_assets_model donde los scripts guardan métricas y checkpoints
@@ -91,3 +93,6 @@ data/miccai/
 # --- Sistema Operativo ---
 .DS_Store
 Thumbs.db
+
+# --- Carpetas temporales y de scratch ---
+scratch/
