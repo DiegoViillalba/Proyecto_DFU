@@ -1,0 +1,25 @@
+name: dfu_env
+channels:
+  - pytorch
+  - nvidia
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.11.7
+  - pillow=10.2.0
+  - numpy=1.26.4
+  - tqdm=4.65.0
+  - pandas=2.1.4
+  - matplotlib=3.8.2
+  - scikit-learn=1.4.2
+  - opencv=4.9.0
+  - pip
+  - pip:
+    - --extra-index-url https://download.pytorch.org/whl/cu128
+    - torch==2.11.0+cu128
+    - torchvision==0.26.0+cu128
+    - albumentations==1.4.17
+    - segmentation-models-pytorch==0.3.3
+    - optuna==3.6.1
+    - thop==0.1.1.post2209072238
+    - seaborn==0.13.2

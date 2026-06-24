@@ -1,0 +1,9 @@
+model,params,gflops,memory_mb,inference_ms
+Classification_ResUnet,8220993,34.8872,225.66,4.95
+Classification_Unet,31037633,41.9086,230.47,5.02
+Classification_UnetPlusPlus,18576769,75.8252,430.16,8.5
+Segmentation_AttentionUnet,16377989,26.5178,433.13,3.6
+Segmentation_ResUnet,8220993,34.8872,346.22,4.97
+Segmentation_Unet,31037633,41.9086,351.15,4.97
+Segmentation_UnetPlusPlus,18576769,75.8252,428.91,8.53
+Segmentation_Carvana_Unet,31037633,41.9086,424.59,4.95

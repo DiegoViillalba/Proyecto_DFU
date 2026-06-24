@@ -1,0 +1,6 @@
+outs:
+- md5: 1be65bf1fe48002db2dc711b472b110e.dir
+  size: 526486206
+  nfiles: 4040
+  hash: md5
+  path: miccai

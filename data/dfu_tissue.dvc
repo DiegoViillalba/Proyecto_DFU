@@ -1,0 +1,6 @@
+outs:
+- md5: 641583ef674c0bbfd7e6d1666c4229b2.dir
+  size: 3528812
+  nfiles: 60
+  hash: md5
+  path: dfu_tissue

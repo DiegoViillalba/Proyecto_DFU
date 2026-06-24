@@ -1,29 +1,93 @@
-SegmentationNetworks/Models/Carvana_Unet_no_data/Unet_Pytorch/my_checkpoint.pth.tar
-SegmentationNetworks/trained_Models/Models_Zps_Imgs/
-gpu_pytorch_prove.py
-SegmentationNetworks/Models/Unet/output_assets_model/
-SegmentationNetworks/Models/Unet/other_versions/output_assets_model_otherv
-SegmentationNetworks/Models/Unet/__pycache__
-SegmentationNetworks/data_DFU_images/__pycache__
-ClasificationAlgorithms/data_TissueSegNet/data_padded/
-ClasificationAlgorithms/data_TissueSegNet/unlabel_data_padded/
-ClasificationAlgorithms/Models/Unet/output_assets_model/
-ClasificationAlgorithms/Models/Unet/__pycache__
-ClasificationAlgorithms/Pruebas_API_Implementation
+# ==========================================
+# GitIgnore - Proyecto DFU
+# ==========================================
 
-SegmentationNetworks/data_DFU_images/Images_Gerardo/new_masks_68
-SegmentationNetworks/data_DFU_images/Images_Gerardo/new_maks_4classes_68
-SegmentationNetworks/data_DFU_images/Images_Gerardo/pred_masks_68_EnsembleArtColab
-SegmentationNetworks/data_DFU_images/Images_Gerardo/pred_masks_68_ResUnetArtColab
-SegmentationNetworks/data_DFU_images/Images_Gerardo/pred_masks_68_UnetPlusPlusArtColab
-SegmentationNetworks/data_DFU_images/Images_Gerardo/pred_masks_4classes_68_EnsembleArt
-SegmentationNetworks/data_DFU_images/Images_Gerardo/pred_masks_4classes_68_ResUnetArt
-SegmentationNetworks/data_DFU_images/Images_Gerardo/pred_masks_4classes_68_UnetPlusPlusArt
-SegmentationNetworks/Models/ResUnet/__pycache__
-SegmentationNetworks/Models/ResUnet/output_assets_model
+# --- Entornos Virtuales y Dependencias ---
+.venv/
+venv/
+env/
+ENV/
+bin/
+lib/
+develop-eggs/
+downloads/
+eggs/
+.eggs/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# --- Cachés de Python ---
 **/__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.tox/
+.nox/
+.coverage
+.cache
+htmlcov/
+.mypy_cache/
+.pyre/
+.pytype/
+pip-log.txt
+pip-delete-this-directory.txt
+
+# --- Jupyter Notebooks ---
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/
+
+# --- IDEs y Editores de Código ---
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.codegpt/
+.gemini/
+
+# --- Control de Versiones de Datos (DVC) y Caché ---
+# Nota: DVC maneja el dataset dentro de data/, pero aseguramos su exclusión en git.
+data/dfu_tissue/
+data/miccai/
+
+# --- Checkpoints y Pesos Pesados de Entrenamiento ---
+# Excluye todas las carpetas output_assets_model donde los scripts guardan métricas y checkpoints
 **/output_assets_model/
-SegmentationNetworks/data_DFU_images/Images_Gerardo/pred_masks_68_attunet
-SegmentationNetworks/data_DFU_images/Images_Gerardo/pred_masks_68_resunet
-SegmentationNetworks/data_DFU_images/Images_Gerardo/pred_masks_68_resunet125e
-.codegpt
+**/saved_images/
+
+# Extensiones de archivos pesados y checkpoints de Deep Learning
+*.pth
+*.pth.tar
+*.zip
+*.mat
+*.h5
+*.hdf5
+*.ckpt
+*.weights
+
+# Exceptuar pesos finales oficiales en la carpeta weights/
+!weights/
+!weights/*.tflite
+
+# --- Resultados temporales e imágenes generadas de Gerardo (Legacy) ---
+**/Images_Gerardo/new_masks_68/
+**/Images_Gerardo/new_maks_4classes_68/
+**/Images_Gerardo/pred_masks_68*/
+**/Images_Gerardo/pred_masks_4classes_68*/
+**/Images_Gerardo/pred_masks_attunet/
+**/Images_Gerardo/pred_masks_resunet/
+**/Images_Gerardo/pred_masks_resunet125e/
+**/Images_Gerardo/testing_12/
+
+# --- Sistema Operativo ---
+.DS_Store
+Thumbs.db
