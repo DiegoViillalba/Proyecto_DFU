@@ -58,6 +58,7 @@ pip-delete-this-directory.txt
 # Nota: DVC maneja el dataset dentro de data/, pero aseguramos su exclusión en git.
 data/dfu_tissue/
 data/miccai/
+data/mexican_dataset/
 .dvc/cache/
 .dvc/tmp/
 

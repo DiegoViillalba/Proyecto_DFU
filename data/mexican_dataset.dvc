@@ -1,0 +1,6 @@
+outs:
+- md5: f698e2cb46633281d925c8b5efba5de4.dir
+  size: 662639
+  nfiles: 136
+  hash: md5
+  path: mexican_dataset
