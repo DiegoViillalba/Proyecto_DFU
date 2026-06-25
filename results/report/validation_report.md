@@ -60,11 +60,11 @@ Quantitative results for the 20-image cohort are summarized in the table below (
 
 | Model | DSC ↑ | IoU ↑ | Precision ↑ | Recall ↑ | HD95 (px) ↓ | ASSD (px) ↓ |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
-| **MANet MiT-b3** | 0.9856 | 0.9718 | 0.9795 | 0.9922 | 1.00 px | 0.54 px |
-| **U-Net MiT-b3** | 0.9818 | 0.9644 | 0.9734 | 0.9908 | 1.00 px | 0.68 px |
-| **ResUNet** | 0.9673 | 0.9375 | 0.9508 | 0.9861 | 1.84 px | 0.97 px |
-| **SegFormer MiT-b3** | 0.9649 | 0.9330 | 0.9492 | 0.9833 | 1.91 px | 1.05 px |
-| **U-Net MobileNetV2** | 0.9492 | 0.9049 | 0.9258 | 0.9778 | 2.81 px | 1.30 px |
+| **U-Net MiT-b3** | 0.9830 | 0.9668 | 0.9752 | 0.9914 | 1.00 px | 0.63 px |
+| **MANet MiT-b3** | 0.9808 | 0.9626 | 0.9694 | 0.9931 | 0.97 px | 0.72 px |
+| **SegFormer MiT-b3** | 0.9673 | 0.9375 | 0.9520 | 0.9850 | 1.83 px | 0.99 px |
+| **ResUNet** | 0.9657 | 0.9342 | 0.9557 | 0.9778 | 1.90 px | 1.02 px |
+| **U-Net MobileNetV2** | 0.9542 | 0.9139 | 0.9375 | 0.9753 | 2.75 px | 1.17 px |
 
 ---
 
@@ -72,21 +72,21 @@ Quantitative results for the 20-image cohort are summarized in the table below (
 
 ### 4.1 Quantitative Performance and Hierarchy
 The quantitative analysis demonstrates a distinct division in performance based on model complexity and architecture:
-*   **Transformer-based Encoders (MiT-b3):** Both **MANet MiT-b3** (DSC: **0.9856**) and **U-Net MiT-b3** (DSC: **0.9818**) show excellent performance. Their attention mechanisms allow them to capture multi-scale global contexts, which are crucial for delineating complex boundaries in ulcer tissues.
-*   **Residual CNNs vs. Transformers:** The **ResUNet** (DSC: **0.9673**, HD95: **1.84 px**) represents a middle-ground model, striking a balance between local spatial features from CNNs and feature reuse through residual connections. It outperforms the lightweight **SegFormer MiT-b3** (DSC: **0.9649**).
-*   **Mobile-Optimized Models:** **U-Net MobileNetV2** exhibits the lowest overall scores (DSC: **0.9492**, IoU: **0.9049**). However, its performance remains clinically acceptable while requiring a fraction of the computational resources, making it suitable for edge-device integration.
+*   **Transformer-based Encoders (MiT-b3):** Both **U-Net MiT-b3** (DSC: **0.9830**) and **MANet MiT-b3** (DSC: **0.9808**) show excellent performance. Their attention mechanisms allow them to capture multi-scale global contexts, which are crucial for delineating complex boundaries in ulcer tissues.
+*   **Residual CNNs vs. Transformers:** The **SegFormer MiT-b3** (DSC: **0.9673**) representing a transformer encoder outperforms the **ResUNet** (DSC: **0.9657**, HD95: **1.90 px**).
+*   **Mobile-Optimized Models:** **U-Net MobileNetV2** exhibits the lowest overall scores (DSC: **0.9542**, IoU: **0.9139**). However, its performance remains clinically acceptable while requiring a fraction of the computational resources, making it suitable for edge-device integration.
 
 ### 4.2 Surface Distance Significance (HD95 & ASSD)
-While area-based metrics (DSC/IoU) are highly useful, boundary surface metrics (HD95 and ASSD) provide critical insight into clinical accuracy. **MANet MiT-b3** achieved a low ASSD error of (**0.54 px**), meaning that its boundary deviations from the ground-truth annotations are less than a pixel on average. In contrast, **U-Net MobileNetV2** had an ASSD error of **1.30 px**, which indicates higher susceptibility to irregular border predictions.
+While area-based metrics (DSC/IoU) are highly useful, boundary surface metrics (HD95 and ASSD) provide critical insight into clinical accuracy. **U-Net MiT-b3** achieved a low ASSD error of (**0.63 px**), meaning that its boundary deviations from the ground-truth annotations are less than a pixel on average. In contrast, **U-Net MobileNetV2** had an ASSD error of **1.17 px**, which indicates higher susceptibility to irregular border predictions.
 
 ---
 
 ## 5. Qualitative Results (Visual Evidence)
 
-To validate the model’s clinical effectiveness and map spatial errors, a qualitative selection was automated using the best-performing model (**MANet MiT-b3**), which was dynamically selected by the notebook based on the maximum mean DSC. The test cohort was sorted by DSC, and three difficulty categories were established:
-1. **Best Cases (DSC: 0.990 - 0.995):** Perfect tissue delineation with minimal boundary noise.
-2. **Average Cases (DSC: 0.982 - 0.985):** Excellent overlap, with minor discrepancies on overlapping tissue boundaries.
-3. **Difficult Cases (DSC: 0.945 - 0.960):** Complex tissue mixtures showing slight under-segmentation in boundary margins.
+To validate the model’s clinical effectiveness and map spatial errors, a qualitative selection was automated using the best-performing model (**U-Net MiT-b3**), which was dynamically selected by the notebook based on the maximum mean DSC. The test cohort was sorted by DSC, and three difficulty categories were established:
+1. **Best Cases (DSC: 0.990 - 0.998):** Perfect tissue delineation with minimal boundary noise.
+2. **Average Cases (DSC: 0.980 - 0.985):** Excellent overlap, with minor discrepancies on overlapping tissue boundaries.
+3. **Difficult Cases (DSC: 0.940 - 0.960):** Complex tissue mixtures showing slight under-segmentation in boundary margins.
 
 ### 5.1 Case-by-Case Visual Comparisons
 For each case, a comparative panel was created containing:
@@ -98,12 +98,12 @@ For each case, a comparative panel was created containing:
 All 15 individual panels are saved and accessible in the folder [results/figures/qualitative/](file:///home/diego-villalba/Proyecto_DFU/results/figures/qualitative/).
 
 ### 5.2 Qualitative Summary Panel
-A comparative summary grid was built to display one representative case from each category (Best, Average, and Difficult). This panel highlights how the MANet MiT-b3 model performs under different wound complexities. The summary panel is stored at [results/figures/qualitative_summary.png](file:///home/diego-villalba/Proyecto_DFU/results/figures/qualitative_summary.png).
+A comparative summary grid was built to display one representative case from each category (Best, Average, and Difficult). This panel highlights how the U-Net MiT-b3 model performs under different wound complexities. The summary panel is stored at [results/figures/qualitative_summary.png](file:///home/diego-villalba/Proyecto_DFU/results/figures/qualitative_summary.png).
 
 ---
 
 ## 6. Conclusion
-In summary, transformer-augmented segmentation networks (**MANet MiT-b3** and **U-Net MiT-b3**) provide the most accurate quantitative boundary and overlap performance for DFU tissue categorization. The visual evidence confirms that boundary errors are sub-pixel on average in easy cases, and limited to narrow transition margins in difficult cases. Lightweight CNNs (**U-Net MobileNetV2**) present a viable alternative for fast mobile-device inference, though they compromise slightly on boundary precision. Future work will incorporate statistical hypothesis testing (e.g., Wilcoxon signed-rank tests) to establish the statistical significance of these performance differences.
+In summary, transformer-augmented segmentation networks (**U-Net MiT-b3** and **MANet MiT-b3**) provide the most accurate quantitative boundary and overlap performance for DFU tissue categorization. The visual evidence confirms that boundary errors are sub-pixel on average in easy cases, and limited to narrow transition margins in difficult cases. Lightweight CNNs (**U-Net MobileNetV2**) present a viable alternative for fast mobile-device inference, though they compromise slightly on boundary precision. Future work will incorporate statistical hypothesis testing (e.g., Wilcoxon signed-rank tests) to establish the statistical significance of these performance differences.
 
 ---
 
