@@ -107,6 +107,34 @@ In summary, transformer-augmented segmentation networks (**U-Net MiT-b3** and **
 
 ---
 
+## 7. Heterogeneous Ensemble Optimization and Evaluation (Leakage-Free)
+
+To resolve the methodological concern of using the same data for optimization and evaluation, the 16 DFUTissue test images were partitioned into two independent subcohorts:
+- **Optimization Set (`validation_for_weights`):** 8 images used to optimize the weights $w_1$ (ResUNet) and $w_2$ (U-Net++).
+- **Reserved Evaluation Set (`validation_for_evaluation`):** 8 images reserved exclusively for the final evaluation of the optimized ensemble.
+
+### 7.1 Optimization Phase (Grid Search)
+A grid search was conducted on `validation_for_weights` with $w_1$ varying from $0.0$ to $1.0$ (step $0.05$). The optimization objective was to maximize the mean Dice Similarity Coefficient (DSC) over the active wound tissue classes (Granulation, Slough, and Necrotic). 
+
+The optimal weights discovered are:
+- $w_1 = 0.0$ (ResUNet)
+- $w_2 = 1.0$ (U-Net++)
+
+The search demonstrated that U-Net++ significantly outperforms ResUNet on this subset, and blending ResUNet logits systematically degrades performance. The optimization curve is visualised in `ensemble_weight_optimization_curve.png`.
+
+### 7.2 Reserved Set Evaluation Results
+Evaluation on the independent `validation_for_evaluation` set yields the following class-wise Dice scores:
+
+| Model | Background | Granulation | Slough | Necrotic | Wound Average (1-3) | All Classes Average |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: |
+| **ResUNet** | 0.9120 | 0.2213 | 0.9209 | 0.6356 | 0.5926 | 0.6725 |
+| **U-Net++** | 0.9055 | 0.3216 | 0.9337 | 0.6345 | 0.6299 | 0.6988 |
+| **Ensemble (Opt)** | 0.9055 | 0.3216 | 0.9337 | 0.6345 | 0.6299 | 0.6988 |
+
+Because the optimization process selected $w_1 = 0.0$, the Ensemble's performance converges to that of U-Net++, which remains the superior individual model for active wound tissues (DSC: **0.6299** vs ResUNet: **0.5926**). A bar chart comparing these models can be seen in `ensemble_vs_best_model.png`.
+
+---
+
 ### Reference Figures and Tables
 - **Dice Similarity Distribution:** See [boxplot_dsc.png](file:///home/diego-villalba/Proyecto_DFU/results/figures/boxplot_dsc.png)
 - **Intersection over Union Distribution:** See [boxplot_iou.png](file:///home/diego-villalba/Proyecto_DFU/results/figures/boxplot_iou.png)
@@ -115,3 +143,7 @@ In summary, transformer-augmented segmentation networks (**U-Net MiT-b3** and **
 - **Qualitative Summary Grid:** See [qualitative_summary.png](file:///home/diego-villalba/Proyecto_DFU/results/figures/qualitative_summary.png)
 - **Individual Qualitative Comparisons:** Accessible in [results/figures/qualitative/](file:///home/diego-villalba/Proyecto_DFU/results/figures/qualitative/)
 - **Metrics Dataset:** Detailed per-image metrics are exported to [results/tables/dfutissue_metrics.csv](file:///home/diego-villalba/Proyecto_DFU/results/tables/dfutissue_metrics.csv).
+- **Ensemble Optimization Curve:** See [ensemble_weight_optimization_curve.png](file:///home/diego-villalba/Proyecto_DFU/results/ensemble_analysis/ensemble_weight_optimization_curve.png)
+- **Ensemble Comparison Plot:** See [ensemble_vs_best_model.png](file:///home/diego-villalba/Proyecto_DFU/results/figures/ensemble_vs_best_model.png)
+- **Ensemble Weights CSV:** Exported to [ensemble_weights.csv](file:///home/diego-villalba/Proyecto_DFU/results/ensemble_analysis/ensemble_weights.csv)
+- **Ensemble Metrics CSV:** Exported to [ensemble_metrics.csv](file:///home/diego-villalba/Proyecto_DFU/results/ensemble_analysis/ensemble_metrics.csv)
