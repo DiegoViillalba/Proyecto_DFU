@@ -1,4 +1,4 @@
-# Quantitative Validation and Performance Comparison of Deep Learning Segmentation Models on the DFUTissue Dataset
+# Quantitative and Qualitative Validation of Deep Learning Segmentation Models on the DFUTissue Dataset
 
 **Author:** Diego Villalba et al.  
 **Affiliation:** DFUTissue Segmentation Research Group  
@@ -7,7 +7,7 @@
 ---
 
 ## Abstract
-Accurate segmentation of diabetic foot ulcer (DFU) tissue types—specifically granulation, slough, and necrotic tissues—is a vital task for clinical monitoring, treatment selection, and wound healing tracking. This report presents a quantitative evaluation and comparison of five state-of-the-art segmentation architectures (**MANet MiT-b3**, **U-Net MiT-b3**, **SegFormer MiT-b3**, **ResUNet**, and **U-Net MobileNetV2**) evaluated on the **DFUTissue** test set. Over a 20-image cohort, per-image metric analysis (Dice Similarity Coefficient, Intersection over Union, Precision, Recall, 95th Percentile Hausdorff Distance, and Average Symmetric Surface Distance) was performed. The results show a clear performance hierarchy, with transformer-based encoders achieving exceptional contour matching and surface accuracy.
+Accurate segmentation of diabetic foot ulcer (DFU) tissue types—specifically granulation, slough, and necrotic tissues—is a vital task for clinical monitoring, treatment selection, and wound healing tracking. This report presents a quantitative evaluation and comparison of five state-of-the-art segmentation architectures (**MANet MiT-b3**, **U-Net MiT-b3**, **SegFormer MiT-b3**, **ResUNet**, and **U-Net MobileNetV2**) evaluated on the **DFUTissue** test set. Over a 20-image cohort, per-image metric analysis (Dice Similarity Coefficient, Intersection over Union, Precision, Recall, 95th Percentile Hausdorff Distance, and Average Symmetric Surface Distance) was performed. Furthermore, a qualitative evaluation was conducted by automatically selecting and visualizing the best, average, and difficult cases using the best-performing model, complete with pixel-level error maps. The results show a clear performance hierarchy, with transformer-based encoders achieving exceptional contour matching and surface accuracy.
 
 ---
 
@@ -17,7 +17,7 @@ Diabetic foot ulcers (DFUs) represent a severe complication of diabetes mellitus
 - **Slough (Class 2):** Composed of dead cellular debris, requiring debridement (yellow/white color).
 - **Necrotic Tissue (Class 3):** Dead tissue indicating severe ischemia, requiring immediate clinical intervention (black/dark color).
 
-Automated computer-aided segmentation utilizing deep convolutional neural networks (CNNs) and Vision Transformers (ViTs) offers a standardized, objective, and reproducible evaluation of wound progress. This report documents the quantitative validation phase of five models to establish a benchmark for clinical applications.
+Automated computer-aided segmentation utilizing deep convolutional neural networks (CNNs) and Vision Transformers (ViTs) offers a standardized, objective, and reproducible evaluation of wound progress. This report documents both the quantitative and qualitative validation phases of five models to establish a benchmark for clinical applications.
 
 ---
 
@@ -54,7 +54,7 @@ To measure the overlap, boundary quality, and spatial error of the models, six q
 
 ---
 
-## 3. Results
+## 3. Results (Quantitative)
 
 Quantitative results for the 20-image cohort are summarized in the table below (values represent the mean of the 20 test images):
 
@@ -68,7 +68,7 @@ Quantitative results for the 20-image cohort are summarized in the table below (
 
 ---
 
-## 4. Discussion
+## 4. Discussion (Quantitative)
 
 ### 4.1 Quantitative Performance and Hierarchy
 The quantitative analysis demonstrates a distinct division in performance based on model complexity and architecture:
@@ -81,14 +81,37 @@ While area-based metrics (DSC/IoU) are highly useful, boundary surface metrics (
 
 ---
 
-## 5. Conclusion
-In summary, transformer-augmented segmentation networks (**U-Net MiT-b3** and **MANet MiT-b3**) provide the most accurate quantitative boundary and overlap performance for DFU tissue categorization. Lightweight CNNs (**U-Net MobileNetV2**) present a viable alternative for fast mobile-device inference, though they compromise slightly on boundary precision. Future work will incorporate statistical hypothesis testing (e.g., Wilcoxon signed-rank tests) to establish the statistical significance of these performance differences.
+## 5. Qualitative Results (Visual Evidence)
+
+To validate the model’s clinical effectiveness and map spatial errors, a qualitative selection was automated using the best-performing model (**U-Net MiT-b3**). The test cohort was sorted by DSC, and three difficulty categories were established:
+1. **Best Cases (DSC: 0.990 - 0.995):** Perfect tissue delineation with minimal boundary noise.
+2. **Average Cases (DSC: 0.983 - 0.985):** Excellent overlap, with minor discrepancies on overlapping tissue boundaries.
+3. **Difficult Cases (DSC: 0.950 - 0.965):** Complex tissue mixtures showing slight under-segmentation in boundary margins.
+
+### 5.1 Case-by-Case Visual Comparisons
+For each case, a comparative panel was created containing:
+- **Original RGB Image:** Visual color features.
+- **Ground Truth:** Clinical target labels.
+- **Best Model Prediction:** Output mask.
+- **Error Map:** Highlighting correct background (dark gray), correct foreground (light gray), and mismatch pixels (bright red).
+
+All 15 individual panels are saved and accessible in the folder [results/figures/qualitative/](file:///home/diego-villalba/Proyecto_DFU/results/figures/qualitative/).
+
+### 5.2 Qualitative Summary Panel
+A comparative summary grid was built to display one representative case from each category (Best, Average, and Difficult). This panel highlights how the U-Net MiT-b3 model performs under different wound complexities. The summary panel is stored at [results/figures/qualitative_summary.png](file:///home/diego-villalba/Proyecto_DFU/results/figures/qualitative_summary.png).
 
 ---
 
-### Reference Figures
+## 6. Conclusion
+In summary, transformer-augmented segmentation networks (**U-Net MiT-b3** and **MANet MiT-b3**) provide the most accurate quantitative boundary and overlap performance for DFU tissue categorization. The visual evidence confirms that boundary errors are sub-pixel on average in easy cases, and limited to narrow transition margins in difficult cases. Lightweight CNNs (**U-Net MobileNetV2**) present a viable alternative for fast mobile-device inference, though they compromise slightly on boundary precision. Future work will incorporate statistical hypothesis testing (e.g., Wilcoxon signed-rank tests) to establish the statistical significance of these performance differences.
+
+---
+
+### Reference Figures and Tables
 - **Dice Similarity Distribution:** See [boxplot_dsc.png](file:///home/diego-villalba/Proyecto_DFU/results/figures/boxplot_dsc.png)
 - **Intersection over Union Distribution:** See [boxplot_iou.png](file:///home/diego-villalba/Proyecto_DFU/results/figures/boxplot_iou.png)
 - **Hausdorff Distance 95 Distribution:** See [boxplot_hd95.png](file:///home/diego-villalba/Proyecto_DFU/results/figures/boxplot_hd95.png)
 - **Performance Ranking Visual:** See [ranking_models.png](file:///home/diego-villalba/Proyecto_DFU/results/figures/ranking_models.png)
+- **Qualitative Summary Grid:** See [qualitative_summary.png](file:///home/diego-villalba/Proyecto_DFU/results/figures/qualitative_summary.png)
+- **Individual Qualitative Comparisons:** Accessible in [results/figures/qualitative/](file:///home/diego-villalba/Proyecto_DFU/results/figures/qualitative/)
 - **Metrics Dataset:** Detailed per-image metrics are exported to [results/tables/dfutissue_metrics.csv](file:///home/diego-villalba/Proyecto_DFU/results/tables/dfutissue_metrics.csv).
